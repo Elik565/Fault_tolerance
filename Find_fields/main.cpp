@@ -5,10 +5,10 @@
 #include <set>
 #include <filesystem>
 
-void find_fields_in_file(const std::string& filename) {
-    std::ifstream fin(filename);
+void find_fields_in_file(const std::filesystem::directory_entry& entry, std::ofstream& fout) {
+    std::ifstream fin(entry.path());
     if (!fin) {
-        std::cerr << "Ошибка при открытии файла " << filename << "!\n";
+        std::cerr << "Ошибка при открытии файла " << entry.path().filename() << "!\n";
         return;
     }
 
@@ -33,20 +33,40 @@ void find_fields_in_file(const std::string& filename) {
         }
     }
 
-    // выводим поля
-    std::cout << "Поля в файле " << filename << ":\n";
+    // выводим поля и пишем в файл
+    std::cout << "Поля в файле " << entry.path().filename() << ":\n";
+    fout << "Поля в файле " << entry.path().filename() << ":\n";
     for (const auto& field : fields) {
         std::cout << "\t" << field << "\n";
+        fout << "\t" << field << "\n";
     }
 }
 
 void find_fields_in_directory(const std::string& directory) {
+    size_t pos = directory.rfind("/");
+    std::string fields_filename;
+    if (pos != std::string::npos) {
+        fields_filename = "fields_" + directory.substr(pos + 1) + ".txt";
+    }
+    else {
+        fields_filename = "fields_" + directory + ".txt";
+    }
+    
+    std::ofstream fout(fields_filename);
+
+    if (!fout) {
+        std::cerr << "Ошибка при открытии файла для записи полей\n";
+        exit(1);
+    }
+
     for (const auto& entry : std::filesystem::directory_iterator(directory)) {
         if (entry.is_regular_file() && entry.path().extension() == ".xml") {
-            find_fields_in_file(entry.path());
+            find_fields_in_file(entry, fout);
         }
         std::cout << "\n";
     }
+
+    fout.close();
 }
 
 int main(int argc, char* argv[]) {

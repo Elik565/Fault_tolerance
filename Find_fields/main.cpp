@@ -43,10 +43,11 @@ void find_fields_in_file(const std::filesystem::directory_entry& entry, std::ofs
 }
 
 void find_fields_in_directory(const std::string& directory) {
+    // делаем имя выходного файла именем директории с xml файлами
     size_t pos = directory.rfind("/");
     std::string fields_filename;
     if (pos != std::string::npos) {
-        fields_filename = "fields_" + directory.substr(pos + 1) + ".txt";
+        fields_filename = "fields_" + directory.substr(pos + 1) + ".txt";  // оставляем только имя директории
     }
     else {
         fields_filename = "fields_" + directory + ".txt";
@@ -64,6 +65,7 @@ void find_fields_in_directory(const std::string& directory) {
             find_fields_in_file(entry, fout);
         }
         std::cout << "\n";
+        fout << "\n";
     }
 
     fout.close();

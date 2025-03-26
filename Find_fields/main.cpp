@@ -38,7 +38,7 @@ void find_fields_in_file(const std::filesystem::directory_entry& entry, std::ofs
     fout << "Поля в файле " << entry.path().filename() << ":\n";
     for (const auto& field : fields) {
         std::cout << "\t" << field << "\n";
-        fout << "\t" << field << "\n";
+        fout << field << "\n";
     }
 }
 

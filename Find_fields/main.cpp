@@ -73,7 +73,7 @@ void find_fields_in_directory(const std::string& directory) {
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
-        std::cerr << "Неправильные входны параметры!\n";
+        std::cerr << "Неправильные входные параметры!\n";
         return 1;
     }
     

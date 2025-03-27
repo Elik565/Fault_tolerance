@@ -16,6 +16,19 @@ std::string get_xml_filename(const std::string& xml_path) {
 }
 
 
+std::string check_delimiters(const std::string& line_part) {
+    std::string value;
+
+    size_t pos = line_part.find(",");
+    if (pos != std::string::npos) {
+        return "\"" + line_part + "\"";
+    }
+    else {
+        return line_part;
+    }
+}
+
+
 std::vector<std::string> get_fields(const std::string& xml_filename, const std::string& fields_file) {
     std::ifstream fin(fields_file);
     if (!fin) {
@@ -79,27 +92,23 @@ void xml_to_csv(const std::string& xml_path, const std::string& fields_file, con
     }
     fout << "\n";
 
-    std::string line;
-
-    // пропускаем первые две строки
-    std::getline(fin, line);
-    std::getline(fin, line);
-
     // читаем файл построчно
+    std::string line;
     while (std::getline(fin, line)) {
-        for (size_t i = 0; i < fields.size(); i++) {
-            size_t field_pos = line.find(" " + fields[i]);  // находим позицию поля
-            if (field_pos != std::string::npos) {  // если нашли 
-                size_t mark_pos1 = line.find_first_of('"', field_pos + fields[i].size());
-                size_t mark_pos2 = line.find_first_of('"', mark_pos1 + 1);
-                std::string str = line.substr(mark_pos1 + 1, mark_pos2 - mark_pos1 - 1);
-                fout << line.substr(mark_pos1 + 1, mark_pos2 - mark_pos1 - 1);
-            }
-            if (i != fields.size() - 1) {
-                fout << ", ";
-            }
-            else {
-                fout << "\n";
+        if (line.find("<row") != std::string::npos) {  // ищем строку с "<row"
+            for (size_t i = 0; i < fields.size(); i++) {
+                size_t field_pos = line.find(" " + fields[i] + "=");  // находим позицию поля
+                if (field_pos != std::string::npos) {  // если нашли 
+                    size_t mark_pos1 = line.find('"', field_pos + fields[i].size() + 1);
+                    size_t mark_pos2 = line.find('"', mark_pos1 + 1);
+                    fout << check_delimiters(line.substr(mark_pos1 + 1, mark_pos2 - mark_pos1 - 1));
+                }
+                if (i != fields.size() - 1) {
+                    fout << ", ";
+                }
+                else {
+                    fout << "\n";
+                }
             }
         }
     }

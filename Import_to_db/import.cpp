@@ -77,13 +77,27 @@ void xml_to_csv(const std::string& xml_path, const std::string& fields_file, con
     }
     fout << "\n";
 
-    // читаем xml файл построчно
     std::string line;
+
+    // пропускаем первые две строки
+    std::getline(fin, line);
+    std::getline(fin, line);
+
+    // читаем файл построчно
     while (std::getline(fin, line)) {
         for (size_t i = 0; i < fields.size(); i++) {
-            size_t pos = line.find(fields[i]);  // находим позицию поля
-            if (pos != std::string::npos) {  // если нашли 
-                //fout << line.substr(pos + fields[i].size());
+            size_t field_pos = line.find(" " + fields[i]);  // находим позицию поля
+            if (field_pos != std::string::npos) {  // если нашли 
+                size_t mark_pos1 = line.find_first_of('"', field_pos + fields[i].size());
+                size_t mark_pos2 = line.find_first_of('"', mark_pos1 + 1);
+                std::string str = line.substr(mark_pos1 + 1, mark_pos2 - mark_pos1 - 1);
+                fout << line.substr(mark_pos1 + 1, mark_pos2 - mark_pos1 - 1);
+            }
+            if (i != fields.size() - 1) {
+                fout << ", ";
+            }
+            else {
+                fout << "\n";
             }
         }
     }

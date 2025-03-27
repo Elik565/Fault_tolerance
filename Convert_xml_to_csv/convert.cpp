@@ -1,4 +1,4 @@
-#include "import.hpp"
+#include "convert.hpp"
 #include <filesystem>
 #include <iostream>
 #include <fstream>
@@ -43,6 +43,8 @@ std::vector<std::string> get_fields(const std::string& xml_filename, const std::
             fields.push_back(line);
         }
     }
+
+    fin.close();
 
     return fields;
 }
@@ -101,6 +103,10 @@ void xml_to_csv(const std::string& xml_path, const std::string& fields_file, con
             }
         }
     }
+
+    fin.close();
+
+    std::cout << "Файл " << xml_path << " успешно обработан!\n";
 }
 
 
@@ -125,4 +131,6 @@ void xml_directory_to_csv(const std::string& xml_directory, const std::string& f
             xml_to_csv(entry.path(), fields_file, csv_directory);
         }
     }
+
+    std::cout << "Директория " << csv_directory << " с csv файлами успешно создана!\n";
 }

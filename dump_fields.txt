@@ -1,0 +1,87 @@
+Поля в файле "Badges.xml":
+Class
+Date
+Id
+Name
+TagBased
+UserId
+
+Поля в файле "Comments.xml":
+CreationDate
+Id
+PostId
+Score
+Text
+UserDisplayName
+UserId
+
+Поля в файле "PostHistory.xml":
+Comment
+CreationDate
+Id
+PostHistoryTypeId
+PostId
+RevisionGUID
+Text
+UserDisplayName
+UserId
+
+Поля в файле "PostLinks.xml":
+CreationDate
+Id
+LinkTypeId
+PostId
+RelatedPostId
+
+Поля в файле "Posts.xml":
+AcceptedAnswerId
+AnswerCount
+Body
+ClosedDate
+CommentCount
+CommunityOwnedDate
+CreationDate
+FavoriteCount
+Id
+LastActivityDate
+LastEditDate
+LastEditorDisplayName
+LastEditorUserId
+OwnerDisplayName
+OwnerUserId
+ParentId
+PostTypeId
+Score
+Tags
+Title
+ViewCount
+
+Поля в файле "Tags.xml":
+Count
+ExcerptPostId
+Id
+TagName
+WikiPostId
+
+Поля в файле "Users.xml":
+AboutMe
+AccountId
+CreationDate
+DisplayName
+DownVotes
+Id
+LastAccessDate
+Location
+Reputation
+UpVotes
+Views
+WebsiteUrl
+
+Поля в файле "Votes.xml":
+BountyAmount
+CreationDate
+Id
+PostId
+UserId
+VoteTypeId
+

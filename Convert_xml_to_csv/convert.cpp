@@ -87,7 +87,7 @@ void xml_to_csv(const std::string& xml_path, const std::string& fields_file, con
     for (size_t i = 0; i < fields.size(); i++) {
         fout << fields[i];
         if (i != fields.size() - 1) {
-            fout << ", ";
+            fout << ",";
         }
     }
     fout << "\n";
@@ -101,10 +101,11 @@ void xml_to_csv(const std::string& xml_path, const std::string& fields_file, con
                 if (field_pos != std::string::npos) {  // если нашли 
                     size_t mark_pos1 = line.find('"', field_pos + fields[i].size() + 1);
                     size_t mark_pos2 = line.find('"', mark_pos1 + 1);
+
                     fout << check_delimiters(line.substr(mark_pos1 + 1, mark_pos2 - mark_pos1 - 1));
                 }
                 if (i != fields.size() - 1) {
-                    fout << ", ";
+                    fout << ",";
                 }
                 else {
                     fout << "\n";

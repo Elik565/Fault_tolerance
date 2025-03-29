@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS "Badges" (
 	"Name" text NOT NULL,
 	"Date" timestamp NOT NULL,
 	"Class" smallint NOT NULL,
-	"TagBased" bit(1) NOT NULL
+	"TagBased" bool NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "Comments" (
@@ -123,7 +123,7 @@ ADD CONSTRAINT "Fk_PostLinks_Posts" FOREIGN KEY ("PostId")
 REFERENCES "Posts"("Id");
 
 ALTER TABLE "PostLinks"
-ADD CONSTRAINT "Fk_PostLinks_Posts_001" FOREIGN KEY ("PostId") 
+ADD CONSTRAINT "Fk_PostLinks_Posts_001" FOREIGN KEY ("RelatedPostId") 
 REFERENCES "Posts"("Id");
 
 ALTER TABLE "Posts"
@@ -147,7 +147,7 @@ ADD CONSTRAINT "Fk_Tags_Posts" FOREIGN KEY ("ExcerptPostId")
 REFERENCES "Posts"("Id");
 
 ALTER TABLE "Tags"
-ADD CONSTRAINT "Fk_Tags_Posts_001" FOREIGN KEY ("WikiPostId") 
+ADD CONSTRAINT"Fk_Tags_Posts_001" FOREIGN KEY ("WikiPostId") 
 REFERENCES "Posts"("Id");
 
 ALTER TABLE "Votes"
@@ -157,3 +157,4 @@ REFERENCES "Posts"("Id");
 ALTER TABLE "Votes"
 ADD CONSTRAINT "Fk_Votes_Users" FOREIGN KEY ("UserId") 
 REFERENCES "Users"("Id");
+

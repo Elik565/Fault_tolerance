@@ -1,5 +1,3 @@
-select clock_timestamp() as start_time;
-
 -- создаем таблицу с id поста и его парами тегов
 --CREATE INDEX IF NOT EXISTS posts_idtags_idx ON "Dump_schema"."Posts"("Id", "Tags");
 CREATE TEMP TABLE "PostTagPairs" AS
@@ -52,4 +50,3 @@ GROUP BY atc.tag1, atc.tag2, atc.count
 ORDER BY atc.count DESC
 LIMIT 10;
 
-select clock_timestamp() as end_time;

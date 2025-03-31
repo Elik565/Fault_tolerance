@@ -77,3 +77,5 @@ FROM '$csv_dir_path/Votes.csv'
 WITH CSV HEADER"
 psql -d "$db_name" -c "ALTER TABLE \"Dump_schema\".\"Votes\" ENABLE TRIGGER ALL"
 
+
+

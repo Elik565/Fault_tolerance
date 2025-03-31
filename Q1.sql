@@ -1,5 +1,3 @@
-SELECT clock_timestamp() AS start_time;
-
 -- создаем таблицу с id поста и его парами тегов
 CREATE TEMP TABLE "PostTagPairs" AS
 WITH tags AS (
@@ -43,5 +41,3 @@ join "Dump_schema"."Users" u on u."Id" = p."OwnerUserId"
 group by atc.tag1, atc.tag2, atc.count
 order by atc.count desc
 limit 10;
-
-SELECT clock_timestamp() AS end_time;

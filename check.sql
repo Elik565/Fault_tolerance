@@ -84,6 +84,3 @@ UPDATE "Votes" v
 SET "UserId" = NULL
 WHERE v."UserId" IS NOT NULL
 AND NOT EXISTS (SELECT 1 FROM "Posts" WHERE "Id" = v."UserId");
-
--- Узнаем конечное время
-SELECT clock_timestamp() AS end_time

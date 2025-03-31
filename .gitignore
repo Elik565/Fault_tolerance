@@ -1,4 +1,4 @@
 dump
-Find_fields/*.txt
-Import_to_db/.vscode
+*.txt
+.vscode
 dump_csv

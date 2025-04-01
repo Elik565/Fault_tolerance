@@ -1,4 +1,3 @@
-explain analyze
 SELECT p1."Id" AS question_id, p2."Id" AS answer_id,
 p2."Score" AS answer_score, u."DisplayName" AS user_name
 FROM "Dump_schema"."Posts" p1

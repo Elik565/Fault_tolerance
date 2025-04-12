@@ -1,3 +1,9 @@
+CREATE INDEX idx_posts_parentid ON "Dump_schema"."Posts"("ParentId");
+
+ANALYZE "Dump_schema"."Posts";
+ANALYZE "Dump_schema"."Users";
+
+explain analyze
 WITH "PostTagPairs" AS (  -- находим пары тегов для каждого поста
     WITH tags AS (
         SELECT "Id" AS post_id, unnest(string_to_array("Tags", '|')) AS tag
@@ -37,3 +43,4 @@ GROUP BY atc.tag1, atc.tag2, atc.count
 ORDER BY atc.count DESC
 LIMIT 10;
 
+DROP INDEX idx_posts_parentid 
